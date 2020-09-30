@@ -191,27 +191,27 @@ storiesOf("Appointment", module)
   .add("Status", () => (
     <Status
     message="Deleting"
-       />
+    />
   ))
   .add("Error", () => (
     <Error
     message="Error"
     onClose={action("onClose")}
-       />
+    />
   ))
   .add("Edit", () => (
     <Edit
     name="Sylvia Palmer"
     interviewers={interviewers}
-    interviewer={1}
+    interviewer={3}
     onSave={action("onSave")}
     onCancel={action("onCancel")}
-       />
+    />
   ))
   .add("Create", () => (
     <Create
     interviewers={interviewers}
     onSave={action("onSave")}
     onCancel={action("onCancel")}
-       />
+    />
   ))
