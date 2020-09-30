@@ -21,6 +21,14 @@ import Header from "components/Appointment/Header";
 
 import Empty from "components/Appointment/Empty";
 
+import Show from "components/Appointment/Show";
+
+import Confirm from "components/Appointment/Confirm";
+
+import Status from "components/Appointment/Status";
+
+import Error from "components/Appointment/Error";
+
 
 
 storiesOf("Button", module)
@@ -70,52 +78,53 @@ storiesOf("DayListItem", module)
     },
   ];
   
-  storiesOf("DayList", module)
-    .addParameters({
-      backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
+storiesOf("DayList", module)
+  .addParameters({
+    backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
     })
-    .add("Monday", () => (
-      <DayList days={days} day={"Monday"} setDay={action("setDay")} />
-    ))
-    .add("Tuesday", () => (
-      <DayList days={days} day={"Tuesday"} setDay={action("setDay")} />
-    ));
+  .add("Monday", () => (
+    <DayList days={days} day={"Monday"} setDay={action("setDay")} />
+  ))
+  .add("Tuesday", () => (
+    <DayList days={days} day={"Tuesday"} setDay={action("setDay")} />
+  ));
 
 
     
-    const interviewer = {
-      id: 1,
-      name: "Sylvia Palmer",
-      avatar: "https://i.imgur.com/LpaY82x.png"
-    };
+const interviewer = {
+  id: 1,
+  name: "Sylvia Palmer",
+  avatar: "https://i.imgur.com/LpaY82x.png"
+};  
     
-    storiesOf("InterviewerListItem", module)
-      .addParameters({
-        backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
-      })
-      .add("Unselected", () => (
-        <InterviewerListItem
-          id={interviewer.id}
-          name={interviewer.name}
-          avatar={interviewer.avatar}
-        />
-      ))
-      .add("Selected", () => (
-        <InterviewerListItem
-          id={interviewer.id}
-          name={interviewer.name}
-          avatar={interviewer.avatar}
-          selected
-        />
-      ))
-      .add("Clickable", () => (
-        <InterviewerListItem
-          id={interviewer.id}
-          name={interviewer.name}
-          avatar={interviewer.avatar}
-          setInterviewer={event => action("setInterviewer")(interviewer.id)}
-        />
-      ));
+
+storiesOf("InterviewerListItem", module)
+  .addParameters({
+    backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
+  })
+  .add("Unselected", () => (
+    <InterviewerListItem
+      id={interviewer.id}
+      name={interviewer.name}
+      avatar={interviewer.avatar}
+    />
+  ))
+  .add("Selected", () => (
+    <InterviewerListItem
+      id={interviewer.id}
+      name={interviewer.name}
+      avatar={interviewer.avatar}
+      selected
+    />
+  ))
+  .add("Clickable", () => (
+    <InterviewerListItem
+      id={interviewer.id}
+      name={interviewer.name}
+      avatar={interviewer.avatar}
+      setInterviewer={event => action("setInterviewer")(interviewer.id)}
+    />
+  ));
 
 const interviewers = [
   { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
@@ -152,3 +161,37 @@ storiesOf("Appointment", module)
   .add("Appointment with Time", () => <Appointment time="12pm" />)
   .add("Header", () => <Header time="12pm" />)
   .add("Empty", () => <Empty onAdd={action("onAdd")} />)
+  .add("Confirm", () => (
+    <Confirm 
+    message="Delete the appointment?"
+    onConfirm={action("onConfirm")}
+    onCancel={action("onCancel")}
+    />
+  ))
+  .add("Show", () => (
+    <Show 
+    student="Lydia Miller-Jones"
+    interviewer={interviewer}
+    onEdit={action("onEdit")}
+    onDelete={action("onDelete")}
+    />
+  ))
+  .add("Confirm", () => (
+    <Confirm 
+    message="Delete the appointment?"
+    onConfirm={action("onConfirm")}
+    onCancel={action("onCancel")}
+
+    />
+  ))
+  .add("Status", () => (
+    <Status
+    message="Deleting"
+       />
+  ))
+  .add("Error", () => (
+    <Error
+    message="Error"
+    onClose={action("onClose")}
+       />
+  ))
