@@ -29,7 +29,9 @@ import Status from "components/Appointment/Status";
 
 import Error from "components/Appointment/Error";
 
-import Form from "components/Appointment/Form";
+import Edit from "components/Appointment/Form";
+
+import Create from "components/Appointment/Form";
 
 
 
@@ -198,16 +200,16 @@ storiesOf("Appointment", module)
        />
   ))
   .add("Edit", () => (
-    <Form
+    <Edit
     name="Sylvia Palmer"
     interviewers={interviewers}
-    interviewer={"1"}
+    interviewer={1}
     onSave={action("onSave")}
     onCancel={action("onCancel")}
        />
   ))
   .add("Create", () => (
-    <Form
+    <Create
     interviewers={interviewers}
     onSave={action("onSave")}
     onCancel={action("onCancel")}
