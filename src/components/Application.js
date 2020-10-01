@@ -67,7 +67,9 @@ export default function Application(props) {
       setDays(days)
       //console.log(response);
     });
-  }, [])
+  },
+  // eslint-disable-next-line
+  [])
 
 
   const schedule = appointments.map((appointment) => {
