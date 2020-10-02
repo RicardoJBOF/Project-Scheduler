@@ -16,6 +16,8 @@ import Status from "components/Appointment/Status"
 
 import Confirm from "components/Appointment/Confirm"
 
+import Error from "components/Appointment/Error";
+
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
@@ -23,6 +25,8 @@ const SAVING = "SAVING";
 const DELETE = "DELETE";
 const CONFIRM = "CONFIRM";
 const EDIT = "EDIT";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 
 
 export default function Appointment(props) {
@@ -40,13 +44,15 @@ export default function Appointment(props) {
     props
       .bookInterview(props.id, interview)
       .then(() => transition(SHOW))
+      .catch(error => transition(ERROR_SAVE, true));
   }
 
-  function del() {
+  function destroy() {
     transition(DELETE, true);
     props
       .cancelInterview(props.id)
-      .then(() => transition(EMPTY));
+      .then(() => transition(EMPTY))
+      .catch(error => transition(ERROR_DELETE, true));
   }
 
   
@@ -93,7 +99,7 @@ export default function Appointment(props) {
     {mode === CONFIRM &&
       < Confirm
         message={'Delete?'}
-        onConfirm={() => del()}
+        onConfirm={() => destroy()}
         onCancel={() => back()}
       />
     }
@@ -105,6 +111,19 @@ export default function Appointment(props) {
         name={props.interview && props.interview.student}
         interviewer={props.interview && props.interview.id}
       />
+    }
+    {mode === ERROR_SAVE &&
+      <Error
+        message={`Appointment not saved`}
+        onClose={() => back()}
+      />
+    }
+    {mode === ERROR_DELETE &&
+      <Error
+        message={`Error deleting appointment`}
+        onClose={() => back()}
+      />
+
     }
 
 
