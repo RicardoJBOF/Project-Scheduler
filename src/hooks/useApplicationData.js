@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import Axios from 'axios';
 
@@ -70,7 +70,7 @@ export default function useApplicationData() {
       });
   };
 
-  return {
+    return {
     state,
     setDay,
     bookInterview,
