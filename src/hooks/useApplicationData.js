@@ -1,19 +1,26 @@
-import { useState, useEffect } from 'react';
+import { useReducer, useEffect } from 'react';
 
 import Axios from 'axios';
+
+import reducer, {
+  SET_DAY,
+  SET_APPLICATION_DATA,
+  SET_INTERVIEW
+} from "../reducers/application";
 
 
 
 export default function useApplicationData() {
 
-  const [state, setState] = useState({
-    day: 'Monday',
+  const [state, dispatch] = useReducer(reducer, {
+    day: "Monday",
     days: [],
     appointments: {},
-    interviewers: {}
-  });
+    interviwers: {}
+  })
 
-  const setDay = day => setState({ ...state, day });
+  const setDay = day => dispatch({ type: SET_DAY, day })
+
 
   useEffect(() => {
     Promise.all([
@@ -22,12 +29,12 @@ export default function useApplicationData() {
       Axios.get('/api/interviewers')
     ])
       .then(all => {
-        setState(prev => ({ 
-          ...prev, 
-          days: all[0].data, 
-          appointments: all[1].data, 
-          interviewers: all[2].data 
-        }));
+        dispatch({
+          type: SET_APPLICATION_DATA,
+          days: all[0].data,
+          appointments: all[1].data,
+          interviewers: all[2].data
+        })
       });
   }, []);
 
@@ -35,38 +42,28 @@ export default function useApplicationData() {
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
-      interview: { ...interview }
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
+      interview
     };
     return Axios
       .put(`/api/appointments/${id}`, appointment)
       .then(() => {
-        setState({
-          ...state,
-          appointments
-        })
+        if (!state.appointments[id].interview) {
+          const dayObject = state.days.find(day => day.name === state.day);
+          state.days[dayObject.id - 1].spots--;
+          dispatch({ type: SET_INTERVIEW, id, interview })
+        } else {
+          dispatch({ type: SET_INTERVIEW, id, interview })
+        }
       });
   };
 
   function cancelInterview(id) {
-    const appointment = {
-      ...state.appointments[id],
-      interview: null
-    }
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    }
     return Axios
       .delete(`/api/appointments/${id}`)
       .then(() => {
-        setState({
-          ...state,
-          appointments
-        })
+        const dayObject = state.days.find(day => day.name === state.day);
+        state.days[dayObject.id - 1].spots++;
+        dispatch({ type: SET_INTERVIEW, id, interview: null })
       });
   };
 
