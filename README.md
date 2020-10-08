@@ -13,9 +13,9 @@ Scheduler is a simple, single-page application where students can schedule, edit
 
 ## Final Product
 
-!["Screenshot of View"](https://github.com/lighthouse-labs/scheduler/blob/master/docs/view.png)
-!["Screenshot of Creating Appointment"](https://github.com/lighthouse-labs/scheduler/blob/master/docs/creating-appointment.png)
-!["Screenshot of register Saving Appointment"](https://github.com/lighthouse-labs/scheduler/blob/master/docs/saving-appointment.png)
+!["Screenshot of View"](https://github.com/RicardoJBOF/scheduler/blob/master/docs/View.png)
+!["Screenshot of Creating Appointment"](https://github.com/RicardoJBOF/scheduler/blob/master/docs/creating-appointment.png)
+!["Screenshot of register Saving Appointment"](https://github.com/RicardoJBOF/scheduler/blob/master/docs/saving-appointment.png)
 
 
 ## Technical Specifications/Dependecies:
