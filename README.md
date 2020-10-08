@@ -1,6 +1,6 @@
 # Interview Scheduler
 
-Scheduler is a simple, single-page application where students can schedule, edit and cancel appointments with tutors. It was created using the React view library.
+Scheduler is a simple single-page application where students can schedule, edit and cancel appointments with tutors. It was created using the React view library.
 
 
 ## Functional Requirements
